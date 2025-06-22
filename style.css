@@ -1,26 +1,13 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background: #f4f4f4;
+  background-color: #ffc0cb; /* Pink background */
 }
 
-#taskForm, #filters {
-  margin-bottom: 20px;
+.card.task-card {
+  background-color: #e6e6fa; /* Lavender */
+  border-left: 5px solid #da70d6;
 }
 
-input, select, button {
-  padding: 8px;
-  margin-right: 10px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-left: 5px solid #007BFF;
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
 }
