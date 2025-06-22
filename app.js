@@ -1,53 +1,78 @@
-let taskInput = document.getElementById("taskInput");
-let addTaskButton = document.getElementById("add-btn");
-let taskList = document.getElementById("taskList");
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-addTaskButton.addEventListener("click", function () {
-  let taskText = taskInput.value.trim();
-  if (taskText === "") {
-    alert("Please enter a task!");
+document.getElementById("addTask").addEventListener("click", () => {
+  const name = document.getElementById("taskName").value.trim();
+  const category = document.getElementById("category").value.trim();
+  const deadline = document.getElementById("deadline").value;
+  const status = document.getElementById("status").value;
+
+  if (!name || !category || !deadline) {
+    alert("Please fill in all fields.");
     return;
   }
 
-  let listItem = document.createElement("li");
+  const task = { name, category, deadline, status };
+  tasks.push(task);
+  saveTasks();
+  renderTasks();
 
-  let checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.addEventListener("change", () => {
-    listItem.classList.toggle("completed");
-  });
-
-  let taskSpan = document.createElement("span");
-  taskSpan.textContent = taskText;
-  taskSpan.addEventListener("click", () => {
-    let input = document.createElement("input");
-    input.type = "text";
-    input.value = taskSpan.textContent;
-    input.addEventListener("blur", () => {
-      taskSpan.textContent = input.value;
-      taskSpan.style.display = "inline";
-      input.remove();
-    });
-    input.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") input.blur();
-    });
-
-    taskSpan.style.display = "none";
-    listItem.insertBefore(input, taskSpan);
-    input.focus();
-  });
-
-  let deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "Delete";
-  deleteBtn.classList.add("delete-btn");
-  deleteBtn.addEventListener("click", () => {
-    listItem.remove();
-  });
-
-  listItem.appendChild(checkbox);
-  listItem.appendChild(taskSpan);
-  listItem.appendChild(deleteBtn);
-  taskList.appendChild(listItem);
-
-  taskInput.value = "";
+  document.getElementById("taskName").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("deadline").value = "";
+  document.getElementById("status").value = "In Progress";
 });
+
+function renderTasks(statusFilter = "", categoryFilter = "") {
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = "";
+
+  const today = new Date().toISOString().split("T")[0];
+
+  tasks.forEach((task, index) => {
+  
+    if (task.status !== "Completed" && task.deadline < today) {
+      task.status = "Overdue";
+    }
+
+    if ((statusFilter && task.status !== statusFilter) ||
+        (categoryFilter && task.category.toLowerCase() !== categoryFilter.toLowerCase())) {
+      return;
+    }
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${task.name}</strong> | ${task.category} | ${task.deadline} | 
+      <select data-index="${index}" class="statusDropdown">
+        <option ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
+        <option ${task.status === "Completed" ? "selected" : ""}>Completed</option>
+        <option ${task.status === "Overdue" ? "selected" : ""}>Overdue</option>
+      </select>
+    `;
+    taskList.appendChild(li);
+  });
+
+  saveTasks();
+}
+
+document.getElementById("taskList").addEventListener("change", function (e) {
+  if (e.target.classList.contains("statusDropdown")) {
+    const index = e.target.dataset.index;
+    tasks[index].status = e.target.value;
+    saveTasks();
+    renderTasks();
+  }
+});
+
+document.getElementById("applyFilters").addEventListener("click", () => {
+  const status = document.getElementById("filterStatus").value;
+  const category = document.getElementById("filterCategory").value;
+  renderTasks(status, category);
+});
+
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+window.onload = () => {
+  renderTasks();
+};

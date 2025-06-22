@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-     <div id="task-form">
+    <div id="task-form">
         <input type="text" id="taskName" placeholder="Task name" />
         <input type="text" id="category" placeholder="Category" />
         <input type="=date" id="deadline" />
@@ -15,10 +17,22 @@
             <option value="In Progress">In Progress</option>
             <option value="Completed">Completed</option>
         </select>
-            <button id="add-btn">Add</button>
-        </div>
-        
-        <ul id="taskList"></ul>
+        <button id="addTask">Add Task</button>
+    </div>
+    <div id="filters">
+        <select id="filterStatus">
+            <option value="">All Statuses</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Overdue">Overdue</option>
+ </select>
+
+ <input type="text" id="filterCategory" placeholder="Filter by Category" />
+ <button id="applyFilters">Apply Filters</button>
+    </div>
+
+    <ul id="taskList"></ul>
     <script src="app.js"></script>
 </body>
+
 </html>
