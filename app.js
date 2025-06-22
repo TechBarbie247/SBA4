@@ -16,13 +16,20 @@ document.getElementById("addTask").addEventListener("click", () => {
   saveTasks();
   renderTasks();
 
-  // Clear inputs
+
   document.getElementById("taskName").value = "";
   document.getElementById("category").value = "";
   document.getElementById("deadline").value = "";
   document.getElementById("status").value = "In Progress";
 });
-
+  document.getElementById("taskList").addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete-task")) {
+      const index = e.target.dataset.index;
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
+    }
+  });
 function renderTasks(statusFilter = "", categoryFilter = "") {
   const taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
@@ -35,7 +42,7 @@ function renderTasks(statusFilter = "", categoryFilter = "") {
     }
 
     if ((statusFilter && task.status !== statusFilter) ||
-        (categoryFilter && task.category.toLowerCase() !== categoryFilter.toLowerCase())) {
+      (categoryFilter && task.category.toLowerCase() !== categoryFilter.toLowerCase())) {
       return;
     }
 
@@ -50,13 +57,16 @@ function renderTasks(statusFilter = "", categoryFilter = "") {
       <p><strong>Category:</strong> ${task.category}</p>
       <p><strong>Deadline:</strong> ${task.deadline}</p>
       <label>Status:
-        <select data-index="${index}" class="form-select statusDropdown mt-1">
+        <select data-index="${index}" class="form-select statusDropdown mt-1 mb-2">
           <option ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
           <option ${task.status === "Completed" ? "selected" : ""}>Completed</option>
           <option ${task.status === "Overdue" ? "selected" : ""}>Overdue</option>
         </select>
       </label>
-    `;
+        <div class="text-end">
+    <button class="btn btn-danger btn-sm delete-task" data-index="${index}">Delete</button>
+  </div>
+`;
 
     card.innerHTML = content;
     col.appendChild(card);
