@@ -16,6 +16,7 @@ document.getElementById("addTask").addEventListener("click", () => {
   saveTasks();
   renderTasks();
 
+  // Clear inputs
   document.getElementById("taskName").value = "";
   document.getElementById("category").value = "";
   document.getElementById("deadline").value = "";
@@ -29,7 +30,6 @@ function renderTasks(statusFilter = "", categoryFilter = "") {
   const today = new Date().toISOString().split("T")[0];
 
   tasks.forEach((task, index) => {
-  
     if (task.status !== "Completed" && task.deadline < today) {
       task.status = "Overdue";
     }
@@ -39,22 +39,34 @@ function renderTasks(statusFilter = "", categoryFilter = "") {
       return;
     }
 
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <strong>${task.name}</strong> | ${task.category} | ${task.deadline} | 
-      <select data-index="${index}" class="statusDropdown">
-        <option ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
-        <option ${task.status === "Completed" ? "selected" : ""}>Completed</option>
-        <option ${task.status === "Overdue" ? "selected" : ""}>Overdue</option>
-      </select>
+    const col = document.createElement("div");
+    col.className = "col";
+
+    const card = document.createElement("div");
+    card.className = `card p-3 task-card-item`;
+
+    const content = `
+      <h5>${task.name}</h5>
+      <p><strong>Category:</strong> ${task.category}</p>
+      <p><strong>Deadline:</strong> ${task.deadline}</p>
+      <label>Status:
+        <select data-index="${index}" class="form-select statusDropdown mt-1">
+          <option ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
+          <option ${task.status === "Completed" ? "selected" : ""}>Completed</option>
+          <option ${task.status === "Overdue" ? "selected" : ""}>Overdue</option>
+        </select>
+      </label>
     `;
-    taskList.appendChild(li);
+
+    card.innerHTML = content;
+    col.appendChild(card);
+    taskList.appendChild(col);
   });
 
   saveTasks();
 }
 
-document.getElementById("taskList").addEventListener("change", function (e) {
+document.getElementById("taskList").addEventListener("change", (e) => {
   if (e.target.classList.contains("statusDropdown")) {
     const index = e.target.dataset.index;
     tasks[index].status = e.target.value;
