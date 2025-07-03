@@ -1,19 +1,2 @@
-body {
-  background-color: #ffc0cb; /* Pink background */
-}
 
-.task-card {
-  background-color: #e6e6fa; /* Lavender */
-  border-left: 5px solid #ce5dca;
-}
-
-.task-card-item {
-  background-color: #f3e8ff;
-  border-left: 5px solid #ce5dca;
-}
-
-.completed {
-  text-decoration: line-through;
-  opacity: 0.6;
-}
 
