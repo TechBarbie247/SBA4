@@ -1,2 +1,80 @@
+  * {
+      margin: 0;
+      padding: 0;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      box-sizing: border-box;
+    }
 
+    .container {
+      width: 100%;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffff63, #ff6ff6);
+      padding: 10px;
+    }
 
+    .taskmanager {
+      max-width: 540px;
+      background: #f1f0f1;
+      margin: 100px auto;
+      padding: 40px 30px 70px;
+      border-radius: 10px;
+    }
+
+    .taskmanager h2 {
+      color: #e9a0b2;
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #dabfc5;
+      border-radius: 30px;
+      padding-left: 20px;
+      margin-bottom: 25px;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      padding: 16px 30px;
+      background: #e9a0b2;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 40px;
+    }
+
+    ul li {
+      list-style: none;
+      font-size: 17px;
+      padding: 12px 8px 12px 50px;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    ul li.select {
+      text-decoration: line-through;
+      color: rgb(206, 68, 153);
+    }
+    ul li span{
+      position: absolute;
+      right: 0;
+      top: 5px;
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      color: #e90b30;
+      line: height 40px; 
+    }
