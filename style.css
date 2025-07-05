@@ -1,80 +1,122 @@
-  * {
-      margin: 0;
-      padding: 0;
-      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-      box-sizing: border-box;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
 
-    .container {
-      width: 100%;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ffff63, #ff6ff6);
-      padding: 10px;
-    }
+body {
+  background: linear-gradient(135deg, #ffd1dc, #ffe0b2, #fff9c4); /* pink, peach, yellow */
+  min-height: 100vh;
+  padding: 20px;
+}
 
-    .taskmanager {
-      max-width: 540px;
-      background: #f1f0f1;
-      margin: 100px auto;
-      padding: 40px 30px 70px;
-      border-radius: 10px;
-    }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .taskmanager h2 {
-      color: #e9a0b2;
-      margin-bottom: 20px;
-    }
+.taskmanager {
+  width: 100%;
+  max-width: 540px;
+  background: #fff7f0;
+  box-shadow: 0 4px 15px rgba(255, 180, 180, 0.3);
+  padding: 40px 30px;
+  border-radius: 16px;
+}
 
-    .row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #dabfc5;
-      border-radius: 30px;
-      padding-left: 20px;
-      margin-bottom: 25px;
-    }
+.taskmanager h2 {
+  color: #ff8ba0;
+  font-size: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+}
 
-    input {
-      flex: 1;
-      border: none;
-      outline: none;
-      background: transparent;
-      padding: 10px;
-      font-size: 14px;
-    }
+.task-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
 
-    button {
-      border: none;
-      outline: none;
-      padding: 16px 30px;
-      background: #e9a0b2;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 40px;
-    }
+input[type="text"],
+input[type="date"],
+select {
+  padding: 10px 12px;
+  border: 2px solid #ffb6b9;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #fff0f5;
+  color: #333;
+}
 
-    ul li {
-      list-style: none;
-      font-size: 17px;
-      padding: 12px 8px 12px 50px;
-      position: relative;
-      cursor: pointer;
-      user-select: none;
-    }
+input::placeholder {
+  color: #c97e91;
+}
 
-    ul li.select {
-      text-decoration: line-through;
-      color: rgb(206, 68, 153);
-    }
-    ul li span{
-      position: absolute;
-      right: 0;
-      top: 5px;
-      width: 40px;
-      height: 40px;
-      font-size: 22px;
-      color: #e90b30;
-      line: height 40px; 
-    }
+button {
+  padding: 12px;
+  background-color: #ff8ba0;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff6f91;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+ul {
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+ul li {
+  list-style: none;
+  background: #ffe0ec;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 16px;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+ul li:hover {
+  background: #ffd9e2;
+}
+
+ul li.select {
+  text-decoration: line-through;
+  color: #d46a92;
+}
+
+ul li .details {
+  font-size: 13px;
+  margin-top: 6px;
+  color: #555;
+}
+
+ul li span {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  font-size: 20px;
+  color: #ff4d6d;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+ul li span:hover {
+  color: #c9184a;
+}
